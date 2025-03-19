@@ -4,65 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CKD Prediction</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/main.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container mt-4">
-    <h2 class="text-center">Chronic Kidney Disease Prediction</h2>
-
-    <!-- Dark Mode Toggle -->
-    <button class="btn btn-dark my-3" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-
-    <form id="predictForm" action="/predict" method="POST" class="p-4 border rounded">
-        <label>Blood Urea:</label>
-        <input type="number" name="blood_urea" class="form-control" required>
-
-        <label>Blood Glucose Random:</label>
-        <input type="number" name="blood_glucose_random" class="form-control" required>
-
-        <label>Coronary Artery Disease:</label>
-        <select name="coronary_artery_disease" class="form-control">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+<div class="login">
+ <script src="/static/js/main.js"></script>
+      <lottie-player
+        src="https://assets10.lottiefiles.com/packages/lf20_Y05lFY.json"
+        background="transparent"
+        speed="1"
+        style="height: 200px;"
+        loop
+        autoplay
+      ></lottie-player>
+      <section class="sec">
+        <input
+          id="age"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Age"
+        />
+        <input
+          id="bp"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Blood Pressure"
+        />
+        <input
+          id="pot"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Potassium"
+        />
+      </section>
+      <section class="sec">
+        <input
+          id="sg"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Specific Gravity"
+        />
+        <input
+          id="al"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Albumin"
+        />
+        <input
+          id="su"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Sugar"
+        />
+      </section>
+      <section class="sec">
+        <select id="rbc" class="drop">
+          <option value="" disabled selected>Red Blood Cells</option>
+          <option value="0">Normal</option>
+          <option value="1">AbNormal</option>
         </select>
-
-        <label>Anemia:</label>
-        <select name="anemia" class="form-control">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+        <select id="pc" class="drop">
+          <option value="" disabled selected>Pus Cell</option>
+          <option value="0">Normal</option>
+          <option value="1">AbNormal</option>
         </select>
-
-        <label>Diabetes Mellitus:</label>
-        <select name="diabetesmellitus" class="form-control">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+        <select id="pcc" class="drop">
+          <option value="" disabled selected>Pus Cell Clumps</option>
+          <option value="0">Not Present</option>
+          <option value="1">Present</option>
         </select>
-
-        <button type="submit" class="btn btn-primary mt-3">Predict</button>
-    </form>
-</div>
-
-<!-- Modal for displaying prediction result -->
-<div class="modal fade" id="resultModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Prediction Result</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <p id="predictionResult"></p>
-                <canvas id="predictionChart"></canvas>
-            </div>
-        </div>
+      </section>
+      <section class="sec">
+        <select id="ba" class="drop">
+          <option value="" disabled selected>Bacteria</option>
+          <option value="0">Not Present</option>
+          <option value="1">Present</option>
+        </select>
+        <input
+          id="bgr"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Blood Glucose Random"
+        />
+        <input
+          id="bu"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Blood Urea"
+        />
+      </section>
+      <section class="sec">
+        <input
+          id="sc"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Serum Creatinine"
+        />
+        <input
+          id="sod"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Sodium"
+        />
+        <input
+          id="hemo"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Hemoglobin"
+        />
+      </section>
+      <section class="sec">
+        <input
+          id="pcv"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Packed Cell Volume"
+        />
+        <input
+          id="wc"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="White Blood Cell Count"
+        />
+        <input
+          id="rc"
+          class="field"
+          type="number"
+          step="any"
+          placeholder="Red Blood Cell Count"
+        />
+      </section>
+      <section class="sec">
+        <select id="htn" class="drop">
+          <option value="" disabled selected>Hypertension</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <select id="dm" class="drop">
+          <option value="" disabled selected>Diabetes Milletus</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <select id="cad" class="drop">
+          <option value="" disabled selected>Coronary Artery Disease</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </section>
+      <section class="sec">
+        <select id="appet" class="drop">
+          <option value="" disabled selected>Appetite</option>
+          <option value="1">Good</option>
+          <option value="0">Bad</option>
+        </select>
+        <select id="pe" class="drop">
+          <option value="" disabled selected>Pedal Edema</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+        <select id="ane" class="drop">
+          <option value="" disabled selected>Anemia</option>
+          <option value="1">Yes</option>
+          <option value="1">No</option>
+        </select>
+      </section>
+      <button onClick="predict(this.form)" class="bt">Predict</button>
     </div>
-</div>
-
-<script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
+    <link rel="stylesheet" href="/static/material/material-modal.css" />
+    <script src="/static/material/material-modal.js"></script>
+  </body>
 </html>
