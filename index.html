@@ -3,36 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CKD Detection</title>
+    <title>CKD Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Chronic Kidney Disease Detection</h2>
-        <form id="ckd-form">
-            <label for="blood_urea">Blood Urea:</label>
-            <input type="number" id="blood_urea" name="blood_urea" required>
 
-            <label for="blood_glucose">Blood Glucose Random:</label>
-            <input type="number" id="blood_glucose" name="blood_glucose" required>
+<div class="container mt-4">
+    <h2 class="text-center">Chronic Kidney Disease Prediction</h2>
 
-            <label for="anemia">Anemia:</label>
-            <select id="anemia" name="anemia">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
-            </select>
+    <!-- Dark Mode Toggle -->
+    <button class="btn btn-dark my-3" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
-            <label for="diabetes">Diabetes Mellitus:</label>
-            <select id="diabetes" name="diabetes">
-                <option value="0">No</option>
-                <option value="1">Yes</option>
-            </select>
+    <form id="predictForm" action="/predict" method="POST" class="p-4 border rounded">
+        <label>Blood Urea:</label>
+        <input type="number" name="blood_urea" class="form-control" required>
 
-            <button type="submit">Predict</button>
-        </form>
-        <p id="result"></p>
+        <label>Blood Glucose Random:</label>
+        <input type="number" name="blood_glucose_random" class="form-control" required>
+
+        <label>Coronary Artery Disease:</label>
+        <select name="coronary_artery_disease" class="form-control">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label>Anemia:</label>
+        <select name="anemia" class="form-control">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label>Diabetes Mellitus:</label>
+        <select name="diabetesmellitus" class="form-control">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary mt-3">Predict</button>
+    </form>
+</div>
+
+<!-- Modal for displaying prediction result -->
+<div class="modal fade" id="resultModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Prediction Result</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p id="predictionResult"></p>
+                <canvas id="predictionChart"></canvas>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
