@@ -1,10 +1,23 @@
-document.getElementById('predictionForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    // Add your prediction logic here
-    alert('Prediction logic will be implemented here.');
-    // Example: Collect form data and send it to a backend API
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
-    // You can use fetch or axios to send the data to your backend
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("predictionForm").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        let formData = [];
+        document.querySelectorAll(".field, .drop").forEach((input) => {
+            formData.push(parseFloat(input.value)); // Convert values to numbers
+        });
+
+        console.log("Sending data:", formData);
+
+        // Send data to Flask backend
+        const response = await fetch("http://127.0.0.1:5000/model", { // Make sure this URL matches your backend
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fields: formData }),
+        });
+
+        // Get prediction result
+        const result = await response.text();
+        alert("Prediction Result: " + (result === "1" ? "CKD Detected" : "No CKD Detected"));
+    });
 });
