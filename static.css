@@ -1,7 +1,6 @@
-/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,80 +10,51 @@ body {
 }
 
 .container {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
 }
 
 h1 {
     text-align: center;
-    color: #333;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
-.login {
+form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 20px;
 }
 
 .sec {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    gap: 15px;
 }
 
 .field, .drop {
     width: 100%;
-    padding: 0.75rem;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    font-size: 14px;
 }
 
-.field:focus, .drop:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.drop {
-    appearance: none;
-    background-color: #fff;
-}
-
-.bt {
+button.bt {
     width: 100%;
-    padding: 0.75rem;
-    background-color: #007bff;
-    color: #fff;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
 }
 
-.bt:hover {
+button.bt:hover {
     background-color: #0056b3;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.login {
-    animation: fadeIn 1s ease-in-out;
 }
