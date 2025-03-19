@@ -1,31 +1,49 @@
-document.getElementById("ckd-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevents page reload
+document.getElementById("predictForm").addEventListener("submit", function(event) {
+    let inputs = document.querySelectorAll("input, select");
+    let valid = true;
+    
+    inputs.forEach(input => {
+        if (input.value.trim() === "") {
+            valid = false;
+            input.style.border = "2px solid red";
+        } else {
+            input.style.border = "1px solid #ccc";
+        }
+    });
 
-    // Collect input values
-    let blood_urea = document.getElementById("blood_urea").value;
-    let blood_glucose = document.getElementById("blood_glucose").value;
-    let anemia = document.getElementById("anemia").value;
-    let diabetes = document.getElementById("diabetes").value;
-
-    // Prepare data to send
-    let formData = {
-        blood_urea: blood_urea,
-        blood_glucose: blood_glucose,
-        anemia: anemia,
-        diabetes: diabetes
-    };
-
-    // Send data to backend (Flask)
-    fetch("http://127.0.0.1:5000/predict", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("result").innerText = "Prediction: " + data.prediction;
-    })
-    .catch(error => console.error("Error:", error));
+    if (!valid) {
+        alert("Please fill all fields!");
+        event.preventDefault();
+    }
 });
+
+// Dark mode toggle
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+}
+
+// Function to display prediction result in modal
+function showPrediction(prediction) {
+    document.getElementById("predictionResult").innerText = `Prediction: ${prediction}`;
+    
+    let ctx = document.getElementById("predictionChart").getContext("2d");
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["CKD Positive", "CKD Negative"],
+            datasets: [{
+                data: prediction === "Yes" ? [80, 20] : [20, 80],
+                backgroundColor: ["red", "green"]
+            }]
+        }
+    });
+
+    new bootstrap.Modal(document.getElementById("resultModal")).show();
+}
+
+// Function to enable voice feedback
+function speakPrediction(result) {
+    let speech = new SpeechSynthesisUtterance();
+    speech.text = "The prediction result is " + result;
+    window.speechSynthesis.speak(speech);
+}
